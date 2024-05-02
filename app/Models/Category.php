@@ -14,6 +14,6 @@ class Category extends Model
     ];
 
     public function todo() {
-        return $this->belongsTo(Todo::class);   
+        return $this->hasMany(Todo::class);   
     }
 }
