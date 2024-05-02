@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'title',
+        'user_id',
+    ];
+
+    public function todo() {
+        return $this->belongsTo(Todo::class);   
+    }
 }
