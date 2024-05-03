@@ -15,10 +15,10 @@
                         </div>
                         <div>
                             @if (session('success'))
-                            <p class="text-sm text-green-600 dark:text-green-400">{{ session('success') }}</p>
+                                <p class="text-sm text-green-600 dark:text-green-400">{{ session('success') }}</p>
                             @endif
                             @if (session('danger'))
-                            <p class="text-sm text-red-600 dark:text-red-400">{{ session('danger') }}</p>
+                                <p class="text-sm text-red-600 dark:text-red-400">{{ session('danger') }}</p>
                             @endif
                         </div>
                     </div>
@@ -29,8 +29,44 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Title</th>
-                                <th scope="col" class="hidden px-6 py-3 md:block">TODO</th>
+                                <th scope="col" class="hidden px-6 py-3 md:block">Todo</th>
                                 <th scope="col" class="px-6 py-3">Action</th>
                             </tr>
                         </thead>
-                    </x-app-layout>
+                        <tbody>
+                            @forelse ($categories as $category)
+                                <tr class="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-700">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                                        <a href="{{ route('category.edit', $category) }}"
+                                            class="hover:underline">{{ $category->title }}</a>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <p>{{ $category->todos()->count() }}</p>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex space-x-3">
+                                            {{-- Action Here --}}
+                                            <form action="{{ route('category.destroy', $category) }}" method="Post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 dark:text-red-400">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr class="bg-white dark:bg-gray-800">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                                        Empty
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

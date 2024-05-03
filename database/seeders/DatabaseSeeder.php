@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Todo;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,10 +30,23 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Kelompok 1',
             'email' => 'kelompok@mail.com',
-            'is_admin' => true,
+            'is_admin' => false,
         ]);
 
         User::factory(100)->create();
         Todo::factory(500)->create();
+
+        Category::create([
+            'title' => 'Category A',
+            
+        ]);
+        Category::create([
+            'title' => 'Category B',
+            
+        ]);
+        Category::create([
+            'title' => 'Category C',
+          
+        ]);
     }
 }
